@@ -4,18 +4,18 @@ public abstract class Produs{
     private long id_Product;
     private String product_Type;
     private double minimValue;
-    private Utilizator owner;
     private boolean sold;
-    private Utilizator buyer;
 
     public Produs() {
 
     }
 
-    public Produs(long id, String product_Name, double minimValue) {
+    public Produs(long id, String product_Name, double minimValue, boolean sold) {
         this.id_Product = id;
         this.product_Type = product_Name;
         this.minimValue = minimValue;
+        this.sold=sold;
+
     }
 
     public long getId_Product() {
