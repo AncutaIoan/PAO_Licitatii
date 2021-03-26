@@ -1,55 +1,50 @@
 package model;
 
-public abstract class Produs extends Object{
+public abstract class Produs{
     private long id_Product;
-    private String name;
+    private String product_Name;
     private double minimValue;
     private Utilizator owner;
+    private boolean sold;
+    private Utilizator buyer;
+
     public Produs() {
 
     }
 
-    public Produs(long id, String name, double price) {
+    public Produs(long id, String product_Name, double minimValue) {
         this.id_Product = id;
-        this.name = name;
-        this.minimValue = price;
-        //this.stock = stock;
+        this.product_Name = product_Name;
+        this.minimValue = minimValue;
     }
 
-    public long getId() {
+    public long getId_Product() {
         return id_Product;
     }
 
-    public void setId(long id) {
+    public void setId_Product(long id) {
         this.id_Product = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProduct_Name() {
+        return product_Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct_Name(String name) {
+        this.product_Name = name;
     }
 
-    /*public double getPrice() {
-        return price;
+    public double getMinimValue() {
+        return minimValue;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setMinimValue(double mV) {
+        this.minimValue = mV;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }*/
 
     @Override //annotation
     public String toString() {
-        return name + " / " + minimValue;
+        return product_Name + " / " + minimValue;
     }
 }
