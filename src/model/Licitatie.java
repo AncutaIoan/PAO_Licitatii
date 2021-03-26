@@ -8,6 +8,10 @@ public class Licitatie{
     private Utilizator[] users=new Utilizator[100];
     private Bid[] bids=new Bid[100];
 
+
+    public Licitatie(){
+
+    }
     //LICITATIE
     public long getId_Licitatie() {return id_Licitatie; }
     public void setId_Licitatie(long id_Licitatie) {this.id_Licitatie=id_Licitatie; }

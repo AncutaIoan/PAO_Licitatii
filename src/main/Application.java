@@ -10,7 +10,14 @@ public class Application {
 
         String s=u.toString()+u1.toString();
         System.out.println(s);
+        Produs product=new Afacere(1, "Afacere", 10000, true,
+        100023, "Drugs", 10);
+        s=product.toString();
+        System.out.println(s);
 
 
+        Licitatie licitatie=new Licitatie();
+        licitatie.setId_Licitatie(1);
+        licitatie.setNume_Licitatie("NUmeTest");
     }
 }
