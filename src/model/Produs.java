@@ -2,7 +2,7 @@ package model;
 
 public abstract class Produs{
     private long id_Product;
-    private String product_Name;
+    private String product_Type;
     private double minimValue;
     private Utilizator owner;
     private boolean sold;
@@ -14,7 +14,7 @@ public abstract class Produs{
 
     public Produs(long id, String product_Name, double minimValue) {
         this.id_Product = id;
-        this.product_Name = product_Name;
+        this.product_Type = product_Name;
         this.minimValue = minimValue;
     }
 
@@ -27,11 +27,11 @@ public abstract class Produs{
     }
 
     public String getProduct_Name() {
-        return product_Name;
+        return product_Type;
     }
 
     public void setProduct_Name(String name) {
-        this.product_Name = name;
+        this.product_Type = name;
     }
 
     public double getMinimValue() {
@@ -45,6 +45,6 @@ public abstract class Produs{
 
     @Override //annotation
     public String toString() {
-        return product_Name + " / " + minimValue;
+        return product_Type + " / " + minimValue;
     }
 }
