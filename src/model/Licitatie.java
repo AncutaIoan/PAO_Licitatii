@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Trebuie decis daca fac update aici si las sa poate fi folosit independent de utilizatori.
+ */
 public class Licitatie{
 
     private long id_Licitatie;
