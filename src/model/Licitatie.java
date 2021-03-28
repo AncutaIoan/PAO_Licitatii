@@ -1,4 +1,5 @@
 package model;
+import java.util.*;
 
 /**
  * Trebuie decis daca fac update aici si las sa poate fi folosit independent de utilizatori.
@@ -10,6 +11,7 @@ public class Licitatie{
     private Produs[] products=new Produs[100];
     private Utilizator[] users=new Utilizator[100];
     private Bid[] bids=new Bid[100];
+    private List<Bid> bidsdone=new ArrayList<Bid>();
 
 
     public Licitatie(){

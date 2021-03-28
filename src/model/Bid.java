@@ -1,6 +1,6 @@
 package model;
 
-public class Bid{
+public class Bid implements Comparable<Bid>{
     private long id_Bid;
     private double bidValue;
     private Produs produs;
@@ -22,6 +22,12 @@ public class Bid{
     public void setId_Bid(long id_Bid) {
         this.id_Bid = id_Bid;
     }
+    public double getBidValue(){
+        return bidValue;
+    }
+    public void setBidValue(double s){
+        this.bidValue=s;
+    }
 
     public Utilizator getUtilizator() {
         return utilizator;
@@ -39,5 +45,9 @@ public class Bid{
     @Override //annotation
     public String toString() {
         return id_Bid + " / " + bidValue + " / " + produs.getId_Product() + " / " + utilizator.getId();
+    }
+    @Override
+    public int compareTo(Bid d) {
+        return (int)this.bidValue - (int)d.getBidValue();
     }
 }

@@ -6,14 +6,6 @@ public class Imobiliare extends Produs{
     private int anConstruire;
     private boolean principala;
 
-
-    /*
-           private long id_Product;
-       private String product_Type;
-       private double minimValue;
-       private boolean sold;
-
-        */
     public Imobiliare()
     {
 
@@ -26,5 +18,25 @@ public class Imobiliare extends Produs{
         this.anConstruire=anConstruire;
         this.principala=principala;
 
+    }
+    //set
+
+    public void setNrCamere(int nr){ this.nrCamere=nr; }
+    public void setEtaj(int e){ this.etaj=e; }
+    public void setAnConstruire(int ac){ this.anConstruire=ac; }
+    public void setPrincipala(boolean p){ this.principala=p; }
+
+    //get
+    public int getNrCamere() { return nrCamere; }
+    public int getEtaj(){ return etaj; }
+    public int getAnConstruire(){ return anConstruire; }
+    public boolean getPrincipala(){ return principala; }
+
+
+    //Overrides
+
+    @Override //annotation
+    public String toString() {
+        return nrCamere + " / " + etaj + " / " + anConstruire + " / " + principala  + " / " + super.toString() ;
     }
 }
