@@ -18,4 +18,4 @@ Product:
         ===|---Teren
         
         ===|---vehicle
-```I plan to do a interface for user and one for the auction owner once i decide how should i implement the bids and the selling way of the auction```
+```I plan to do a interface for user and one for the auction owner once i decide how i should implement the bids and the selling way of the auction```
