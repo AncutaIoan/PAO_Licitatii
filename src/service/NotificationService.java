@@ -4,8 +4,10 @@ import model.*;
 
 public class NotificationService {
 
-        public void sendNotification(NotificationService notification) {
+        public void sendNotification(Notification notification) {
+            System.out.println("Notification <" + notification.getMessage() + ">");
         }
+
 
     }
 

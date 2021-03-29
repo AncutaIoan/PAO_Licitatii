@@ -29,7 +29,7 @@ public class Licitatie{
     public void setUsers(Utilizator[] users) {
         this.users = users;
     }
-
+    public Utilizator getUser(int i){ return users[i];}
 
     //PRODUS
     public Produs[] getProducts() {
@@ -38,7 +38,7 @@ public class Licitatie{
     public void setProducts(Produs[] products) {
         this.products = products;
     }
-
+    public Produs getProduct(int i){return products[i];}
 
     //BIDS
     public Bid[] getBids() {
@@ -46,5 +46,8 @@ public class Licitatie{
     }
     public void setBids(Bid[] bids) {
         this.bids = bids;
+    }
+    public void sortBids(){
+        //nu merge :c
     }
 }

@@ -17,7 +17,7 @@ public class Application {
             String line=scanner.nextLine();
             switch (line){
                 case "add": {
-                    System.out.println("You want to add : user or product. Please type in user or product");
+                    System.out.println("You want to add : user or product. Please type in User or Product");
                     String addType = scanner.nextLine();
                     switch (addType) {
                         case "User": {
@@ -56,11 +56,20 @@ public class Application {
                             }
                             break;
                         }
+                        case "Bid":{
+                            System.out.println("Please specify the user details:value/id_produs/id_utilizator:");
+
+                            auctionService.addBid(licitatie, buildBid(licitatie, scanner.nextLine(), auctionService.getNumberOfUsers(licitatie) ,auctionService.getNumberOfProducts(licitatie)));
+                            break;
+
+                        }
                     }
                     break;
                 }
                 case "view":{
                         auctionService.printProductsDetails(licitatie);
+                        System.out.println("-----------------------------------------------------------------------");
+                        auctionService.printUsersDetails(licitatie);
                     break;
                 }
                 case "exit":{
@@ -150,5 +159,20 @@ public class Application {
 
         return new Afacere(new Random().nextInt(100), product_Type, minimValue,sold, profitAnual, ocupatie, nrAng);
     }
+    private static Bid buildBid(Licitatie licitatie,String bidDetails,int mU,int mP){
+        //impartire date
+        String[] attributes = bidDetails.split("/");
+        //aranjare date
 
+        double bValue = Double.valueOf(attributes[0]);
+        int idP=Integer.valueOf(attributes[1]);
+        int idU=Integer.valueOf(attributes[2]);
+        if(idP>=mP || idU >= mU)
+            return new Bid();
+
+        /*
+        Aici ar trebui facut un throw cred, doar ca nu-mi pot da seama cum sa zic ca valorile bagate > decat cele existente
+         */
+
+        return new Bid(new Random().nextInt(100), bValue, licitatie.getProduct(idP), licitatie.getUser(idU));    }
 }

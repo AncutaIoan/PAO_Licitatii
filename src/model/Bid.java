@@ -8,7 +8,7 @@ public class Bid implements Comparable<Bid>{
     public Bid() {
 
     }
-    public Bid(long id_Bid, Produs produs, Utilizator utilizator, double bidValue){
+    public Bid(long id_Bid, double bidValue,Produs produs, Utilizator utilizator){
         this.id_Bid=id_Bid;
         this.bidValue=bidValue;
         this.produs=produs;
@@ -48,6 +48,6 @@ public class Bid implements Comparable<Bid>{
     }
     @Override
     public int compareTo(Bid d) {
-        return (int)this.bidValue - (int)d.getBidValue();
+            return (int)this.bidValue - (int)d.getBidValue();
     }
 }
