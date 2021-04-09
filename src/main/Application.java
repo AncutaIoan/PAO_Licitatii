@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
-        Licitatie licitatie=new Licitatie();
+        Auction auction=new Auction();
         AuctionService auctionService=new AuctionService(new NotificationService());
         Scanner scanner=new Scanner(System.in);
 
@@ -22,33 +22,33 @@ public class Application {
                     switch (addType) {
                         case "User": {
                             System.out.println("Please specify the user details:username/password/lastName/firstName/address:");
-                            auctionService.addUser(licitatie, buildUser(scanner.nextLine()));
+                            auctionService.addUser(auction, buildUser(scanner.nextLine()));
                             break;
                         }
                         case "Product": {
-                            System.out.println("Please choose a product type: ");
+                            System.out.println("Please choose a product type land/vehicle/realestate/business: ");
                             String productType = scanner.nextLine();
                             switch (productType) {
-                                case "teren": {
+                                case "land": {
                                     System.out.println("Please specify the land details: product_Type/minimValue/sold/tip/zona/lungime/latime/electricitate/apa");
                                     //product_Type=teren, nu vrea fara
-                                    auctionService.addProduct(licitatie, buildTeren(scanner.nextLine()));
+                                    auctionService.addProduct(auction, buildLand(scanner.nextLine()));
                                     break;
                                 }
                                 case "vehicle": {
                                     System.out.println("Please specify the car details: " +
                                             "product_Type/minimValue/sold/marca/model/anFabricatie/consum/accident/reparat/putere");
-                                    auctionService.addProduct(licitatie, buildCar(scanner.nextLine()));
+                                    auctionService.addProduct(auction, buildCar(scanner.nextLine()));
                                     break;
                                 }
-                                case "imobil": {
+                                case "realestate": {
                                     System.out.println("Please specify the real estate details: product_Type/minimValue/sold/nrCamere/etaj/anConstruire/principala");
-                                    auctionService.addProduct(licitatie, buildImobil(scanner.nextLine()));
+                                    auctionService.addProduct(auction, buildRealEstate(scanner.nextLine()));
                                     break;
                                 }
-                                case "afacere": {
+                                case "business": {
                                     System.out.println("Please specify the business details: product_Type/minimValue/sold/profitAnual/ocupatie/nrAng");
-                                    auctionService.addProduct(licitatie, buildAfacere(scanner.nextLine()));
+                                    auctionService.addProduct(auction, buildBusiness(scanner.nextLine()));
                                     break;
                                 }
                                 default:
@@ -59,7 +59,7 @@ public class Application {
                         case "Bid":{
                             System.out.println("Please specify the user details:value/id_produs/id_utilizator:");
 
-                            auctionService.addBid(licitatie, buildBid(licitatie, scanner.nextLine(), auctionService.getNumberOfUsers(licitatie) ,auctionService.getNumberOfProducts(licitatie)));
+                            auctionService.addBid(auction, buildBid(auction, scanner.nextLine(), auctionService.getNumberOfUsers(auction) ,auctionService.getNumberOfProducts(auction)));
                             break;
 
                         }
@@ -67,9 +67,9 @@ public class Application {
                     break;
                 }
                 case "view":{
-                        auctionService.printProductsDetails(licitatie);
+                        auctionService.printProductsDetails(auction);
                         System.out.println("-----------------------------------------------------------------------");
-                        auctionService.printUsersDetails(licitatie);
+                        auctionService.printUsersDetails(auction);
                     break;
                 }
                 case "exit":{
@@ -83,18 +83,18 @@ public class Application {
         }
 
     }
-    private static Utilizator buildUser(String productDetails) {
+    private static User buildUser(String productDetails) {
         String[] attributes = productDetails.split("/");
         String username = attributes[0];
         String password = attributes[1];
         String firstName = attributes[2];
         String lastName = attributes[3];
         String address = attributes[4];
-        return new Utilizator(new Random().nextInt(100), username, password, firstName, lastName, address);
+        return new User(new Random().nextInt(100), username, password, firstName, lastName, address);
     }
 
 
-    private static Produs buildTeren(String productDetails) {
+    private static Land buildLand(String productDetails) {
         String[] attributes = productDetails.split("/");
 
         String product_Type = attributes[0];
@@ -107,7 +107,7 @@ public class Application {
         boolean electricitate = Boolean.valueOf(attributes[7]);
         boolean apa = Boolean.valueOf(attributes[8]);
 
-        return new Teren(new Random().nextInt(100), product_Type, minimValue,sold, tip, zona, lungime, latime, electricitate, apa);
+        return new Land(new Random().nextInt(100), product_Type, minimValue,sold, tip, zona, lungime, latime, electricitate, apa);
     }
 
 
@@ -128,7 +128,7 @@ public class Application {
         return new Vehicle(new Random().nextInt(100), product_Type, minimValue,sold, marca,model, anFabricatie, consum, accident, reparat, putere);
     }
 
-    private static Imobiliare buildImobil(String productDetails) {
+    private static RealEstate buildRealEstate(String productDetails) {
         //impartire date
         String[] attributes = productDetails.split("/");
         //aranjare date
@@ -141,10 +141,10 @@ public class Application {
         int anConstruire = Integer.valueOf(attributes[5]);
         boolean principala = Boolean.valueOf(attributes[6]);
 
-        return new Imobiliare(new Random().nextInt(100), product_Type, minimValue,sold, nrCamere, etaj, anConstruire, principala);
+        return new RealEstate(new Random().nextInt(100), product_Type, minimValue,sold, nrCamere, etaj, anConstruire, principala);
     }
 
-    private static Afacere buildAfacere(String productDetails) {
+    private static Business buildBusiness(String productDetails) {
         //impartire date
         String[] attributes = productDetails.split("/");
         //aranjare date
@@ -157,9 +157,9 @@ public class Application {
         String ocupatie=attributes[4];
         int nrAng=Integer.valueOf(attributes[5]);
 
-        return new Afacere(new Random().nextInt(100), product_Type, minimValue,sold, profitAnual, ocupatie, nrAng);
+        return new Business(new Random().nextInt(100), product_Type, minimValue,sold, profitAnual, ocupatie, nrAng);
     }
-    private static Bid buildBid(Licitatie licitatie,String bidDetails,int mU,int mP){
+    private static Bid buildBid(Auction auction,String bidDetails,int mU,int mP){
         //impartire date
         String[] attributes = bidDetails.split("/");
         //aranjare date
@@ -174,5 +174,5 @@ public class Application {
         Aici ar trebui facut un throw cred, doar ca nu-mi pot da seama cum sa zic ca valorile bagate > decat cele existente
          */
 
-        return new Bid(new Random().nextInt(100), bValue, licitatie.getProduct(idP), licitatie.getUser(idU));    }
+        return new Bid(new Random().nextInt(100), bValue, auction.getProduct(idP), auction.getUser(idU));    }
 }

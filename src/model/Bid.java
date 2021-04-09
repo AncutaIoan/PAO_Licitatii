@@ -1,26 +1,26 @@
 package model;
 
 public class Bid implements Comparable<Bid>{
-    private long id_Bid;
+    private long idBid;
     private double bidValue;
-    private Produs produs;
-    private Utilizator utilizator;
+    private Product product;
+    private User user;
     public Bid() {
 
     }
-    public Bid(long id_Bid, double bidValue,Produs produs, Utilizator utilizator){
-        this.id_Bid=id_Bid;
+    public Bid(long id_Bid, double bidValue,Product produs, User user){
+        this.idBid=id_Bid;
         this.bidValue=bidValue;
-        this.produs=produs;
-        this.utilizator=utilizator;
+        this.product=produs;
+        this.user=user;
 
     }
-    public long getId_Bid() {
-        return id_Bid;
+    public long getIdBid() {
+        return idBid;
     }
 
-    public void setId_Bid(long id_Bid) {
-        this.id_Bid = id_Bid;
+    public void setIdBid(long id_Bid) {
+        this.idBid = id_Bid;
     }
     public double getBidValue(){
         return bidValue;
@@ -29,22 +29,22 @@ public class Bid implements Comparable<Bid>{
         this.bidValue=s;
     }
 
-    public Utilizator getUtilizator() {
-        return utilizator;
+    public User getUser() {
+        return user;
     }
-    public Produs getProdus() {
-        return produs;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setUtilizator(Utilizator utilizator) {
-        this.utilizator = utilizator;
+    public void setUser(User utilizator) {
+        this.user = utilizator;
     }
-    public void setProdus(Produs produs){
-        this.produs=produs;
+    public void setProduct(Product produs){
+        this.product=produs;
     }
     @Override //annotation
     public String toString() {
-        return id_Bid + " / " + bidValue + " / " + produs.getId_Product() + " / " + utilizator.getId();
+        return idBid + " / " + bidValue + " / " + product.getIdProduct() + " / " + user.getId();
     }
     @Override
     public int compareTo(Bid d) {

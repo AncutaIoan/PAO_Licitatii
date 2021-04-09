@@ -1,13 +1,13 @@
 package model;
 
-public class Vehicle  extends Produs{
-    private String marca;
+public class Vehicle  extends Product{
+    private String maker;
     private String model;
-    private int anFabricatie;
-    private double consum;
+    private int yearOfFab;
+    private double consume;
     private boolean accident;
-    private boolean reparat;
-    private int putere;
+    private boolean repaired;
+    private int power;
     public Vehicle()
     {
 
@@ -15,36 +15,37 @@ public class Vehicle  extends Produs{
     public Vehicle(long id_Product, String product_Type, double minimVal, boolean sold,
                    String marca, String model, int anFabricatie, double consum, boolean acc, boolean rep, int putere){
         super(id_Product, product_Type, minimVal, sold);
-        this.marca=marca;
+        this.maker=marca;
         this.model=model;
-        this.anFabricatie=anFabricatie;
-        this.consum=consum;
+        this.yearOfFab=anFabricatie;
+        this.consume=consum;
         this.accident=acc;
-        this.reparat=rep;
-        this.putere=putere;
+        this.repaired=rep;
+        this.power=putere;
     }
     //set
-    public void setMarca(String m){ this.marca=m; }
+    public void setMaker(String m){ this.maker=m; }
     public void setModel(String m){ this.model=m; }
-    public void setAnFabricatie(int af){ this.anFabricatie=af; }
-    public void setConsum(double c){ this.consum=c; }
+    public void setYearOfFab(int af){ this.yearOfFab=af; }
+    public void setConsume(double c){ this.consume=c; }
+
     public void setAccident(boolean acc){this.accident=acc; }
-    public void setReparat(boolean rep){this.reparat=rep;}
-    public void setPutere(int p){ this.putere=p; }
+    public void setRepaired(boolean rep){this.repaired=rep;}
+    public void setPower(int p){ this.power=p; }
     //get
-    public String getMarca(){ return marca; }
+    public String getMaker(){ return maker; }
     public String getModel(){ return model; }
-    public int getAnFabricatie(){ return anFabricatie;}
-    public double getConsum(){ return consum;}
+    public int getYearOfFab(){ return yearOfFab;}
+    public double getConsume(){ return consume;}
     public boolean getAccident(){ return accident;}
-    public boolean getReparat(){ return reparat;}
-    public int getPutere(){ return putere;}
+    public boolean getRepaired(){ return repaired;}
+    public int getPower(){ return power;}
 
     //Overrides
 
     @Override //annotation
     public String toString() {
-        return marca + " / " + model + " / " + anFabricatie + " / " + consum + " / " + accident + " / " + reparat+ " / "+ putere + " / " + super.toString() ;
+        return maker + " / " + model + " / " + yearOfFab + " / " + consume + " / " + accident + " / " + repaired+ " / "+ power + " / " + super.toString() ;
     }
 
 }

@@ -1,19 +1,19 @@
 package model;
 
-public class Utilizator extends Object{
-    private long id_User;
+public class User{
+    private long idUser;
     private String username;
     private String password;
     private String lastName;
     private String firstName;
     private String address;
 
-    public Utilizator() {
+    public User() {
 
     }
 
-    public Utilizator(long id, String uName, String pW, String laNa, String fiNa, String address) {
-        this.id_User = id;
+    public User(long id, String uName, String pW, String laNa, String fiNa, String address) {
+        this.idUser = id;
         this.username=uName;
         this.password=pW;
         this.lastName=laNa;
@@ -22,11 +22,11 @@ public class Utilizator extends Object{
     }
 
     public long getId() {
-        return id_User;
+        return idUser;
     }
 
     public void setId(long id) {
-        this.id_User = id;
+        this.idUser = id;
     }
 
     public String getName() {
@@ -40,7 +40,7 @@ public class Utilizator extends Object{
 
     @Override //annotation
     public String toString() {
-        return id_User + " / " + username + " / " + password + " / " + lastName + " / "+ firstName + " / " + address;
+        return idUser + " / " + username + " / " + password + " / " + lastName + " / "+ firstName + " / " + address;
     }
 
 }
