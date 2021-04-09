@@ -2,9 +2,9 @@
 <b>PAO</b>
 
 ```
-Tema: sistem de licitatii
+Task: auction basic system
 
-Clase: Licitatie, Product, User, Land, Business, RealEState, Bid,Notification, Vehicle
+Classes: Licitatie, Product, User, Land, Business, RealEState, Bid,Notification, Vehicle
 
 ```
 <b>IERARHIE</b>
