@@ -83,6 +83,15 @@ public class Application {
         }
 
     }
+    private static void readData(Auction auction, AuctionService auctionService)
+    {
+
+
+
+
+
+
+    }
     private static User buildUser(String productDetails) {
         String[] attributes = productDetails.split("/");
         String username = attributes[0];
