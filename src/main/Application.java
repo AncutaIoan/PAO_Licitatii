@@ -3,14 +3,15 @@ package main;
 import model.*;
 import service.*;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
+        LoadData loadData=new LoadData();
         Auction auction=new Auction();
         AuctionService auctionService=new AuctionService(new NotificationService());
         Scanner scanner=new Scanner(System.in);
-
         while(true)
         {
             System.out.println("Please type one of the following commands: add, view or exit");
@@ -74,6 +75,12 @@ public class Application {
                 }
                 case "exit":{
                     System.out.println("Bye bye!");
+                    SaveData saveData=new SaveData();
+                    try {
+                        saveData.saveProducts(auction,auctionService);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     System.exit(0);
                     break;
                 }
