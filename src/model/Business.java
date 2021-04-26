@@ -41,6 +41,6 @@ public class Business extends Product{
     }
     @Override //annotation
     public String toString() {
-        return anualIncome + " / " + ocupation + " / " + nrEmp + " / " + super.toString() ;
+        return  super.toString()+ "," +anualIncome + "," + ocupation + "," + nrEmp  ;
     }
 }

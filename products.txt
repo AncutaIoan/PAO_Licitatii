@@ -1,1 +1,2 @@
-rece / rece / 10.0 / 100.0 / false / false / land / 1.0
+business,100.0,false,100.0,asd,10
+realestate,100.0,false,3,2,1900,false

@@ -37,6 +37,6 @@ public class RealEstate extends Product{
 
     @Override //annotation
     public String toString() {
-        return nrRooms + " / " + floor + " / " + year + " / " + mainStreet  + " / " + super.toString() ;
+        return  super.toString() + "," + nrRooms + "," + floor + "," + year + "," + mainStreet  ;
     }
 }

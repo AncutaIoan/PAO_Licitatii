@@ -5,13 +5,19 @@ import service.*;
 
 import java.io.FileNotFoundException;
 import java.util.*;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         LoadData loadData=new LoadData();
         Auction auction=new Auction();
         AuctionService auctionService=new AuctionService(new NotificationService());
         Scanner scanner=new Scanner(System.in);
+        loadData.addUsers(auction);
+        loadData.addProducts(auction, auctionService);
+        Audit audit=new Audit();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         while(true)
         {
             System.out.println("Please type one of the following commands: add, view or exit");
@@ -24,6 +30,8 @@ public class Application {
                         case "User": {
                             System.out.println("Please specify the user details:username/password/lastName/firstName/address:");
                             auctionService.addUser(auction, buildUser(scanner.nextLine()));
+                            audit.addRequest("add,user,"+dtf.format(now));
+
                             break;
                         }
                         case "Product": {
@@ -31,6 +39,8 @@ public class Application {
                             String productType = scanner.nextLine();
                             switch (productType) {
                                 case "land": {
+
+                                    audit.addRequest("add,land,"+dtf.format(now));
                                     System.out.println("Please specify the land details: product_Type/minimValue/sold/tip/zona/lungime/latime/electricitate/apa");
                                     //product_Type=teren, nu vrea fara
                                     auctionService.addProduct(auction, buildLand(scanner.nextLine()));
@@ -40,16 +50,22 @@ public class Application {
                                     System.out.println("Please specify the car details: " +
                                             "product_Type/minimValue/sold/marca/model/anFabricatie/consum/accident/reparat/putere");
                                     auctionService.addProduct(auction, buildCar(scanner.nextLine()));
+                                    audit.addRequest("add,vehicle,"+dtf.format(now));
+
                                     break;
                                 }
                                 case "realestate": {
                                     System.out.println("Please specify the real estate details: product_Type/minimValue/sold/nrCamere/etaj/anConstruire/principala");
                                     auctionService.addProduct(auction, buildRealEstate(scanner.nextLine()));
+                                    audit.addRequest("add,realestate,"+dtf.format(now));
+
                                     break;
                                 }
                                 case "business": {
                                     System.out.println("Please specify the business details: product_Type/minimValue/sold/profitAnual/ocupatie/nrAng");
                                     auctionService.addProduct(auction, buildBusiness(scanner.nextLine()));
+                                    audit.addRequest("add,business,"+dtf.format(now));
+
                                     break;
                                 }
                                 default:
@@ -61,6 +77,8 @@ public class Application {
                             System.out.println("Please specify the user details:value/id_produs/id_utilizator:");
 
                             auctionService.addBid(auction, buildBid(auction, scanner.nextLine(), auctionService.getNumberOfUsers(auction) ,auctionService.getNumberOfProducts(auction)));
+                            audit.addRequest("add,bid,"+dtf.format(now));
+
                             break;
 
                         }
@@ -76,11 +94,9 @@ public class Application {
                 case "exit":{
                     System.out.println("Bye bye!");
                     SaveData saveData=new SaveData();
-                    try {
-                        saveData.saveProducts(auction,auctionService);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                   saveData.saveProducts(auction,auctionService);
+                   saveData.saveUsers(auction);
+                      //  saveData.saveBids(auction);
                     System.exit(0);
                     break;
                 }

@@ -39,7 +39,7 @@ public class Land extends Product{
 
     @Override //annotation
     public String toString() {
-        return type + " / " + area + " / " + length + " / " +width + " / "+ electricity + " / "+ water + " / " + super.toString() ;
+        return  super.toString()+ "," +type + "," + area + "," + length + "," +width + ","+ electricity + ","+ water  ;
     }
 
 }

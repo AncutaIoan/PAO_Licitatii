@@ -44,7 +44,7 @@ public class Bid implements Comparable<Bid>{
     }
     @Override //annotation
     public String toString() {
-        return idBid + " / " + bidValue + " / " + product.getIdProduct() + " / " + user.getId();
+        return idBid + "," + bidValue + "," + product.getIdProduct() + "," + user.getId();
     }
     @Override
     public int compareTo(Bid d) {

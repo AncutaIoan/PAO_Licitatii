@@ -11,7 +11,7 @@ public class LoadData {
 
 
     public void addProducts(Auction auction,AuctionService auctionService) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("PAO_Licitatii/data/bids.txt"));
+        Scanner scanner = new Scanner(new File("products.txt"));
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] attributes = line.split(",");
@@ -74,7 +74,7 @@ public class LoadData {
     public void addUsers(Auction auction) {
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new File("filename"));
+            scanner = new Scanner(new File("users.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -105,7 +105,7 @@ public class LoadData {
         Bid[] bids=new Bid[100];
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] attributes = line.split("/");
+            String[] attributes = line.split(",");
             //aranjare date
 
             double bValue = Double.valueOf(attributes[0]);

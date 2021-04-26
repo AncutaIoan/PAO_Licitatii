@@ -11,21 +11,12 @@ public class SaveData {
 
     public void saveProducts(Auction auction, AuctionService auctionService) throws FileNotFoundException {
        // Scanner scanner = new Scanner(new File("PAO_Licitatii/data/bids.txt"));
-        try {
-            File myObj = new File("products.txt");
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+
 
         File file = new File("products.txt");
         //Instantiating the PrintStream class
-        PrintStream stream = new PrintStream(file);
+        PrintStream stream;
+        stream = new PrintStream(file);
 
         System.setOut(stream);
         for(Product p : auction.getProducts()) {
@@ -37,17 +28,7 @@ public class SaveData {
 
     }
     public void saveUsers(Auction auction) {
-        try {
-            File myObj = new File("users.txt");
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+
 
         File file = new File("users.txt");
         //Instantiating the PrintStream class
@@ -72,17 +53,15 @@ public class SaveData {
     }
     public void saveBids(Auction auction) {
         try {
-            File myObj = new File("bids.txt");
+            File myObj = new File("bids");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        File file = new File("bids.txt");
+        File file = new File("bids");
         //Instantiating the PrintStream class
         PrintStream stream = null;
         try {

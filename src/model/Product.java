@@ -45,6 +45,6 @@ public abstract class Product{
 
     @Override //annotation
     public String toString() {
-        return productType + " / " + minimValue;
+        return productType + "," + minimValue + "," + sold;
     }
 }

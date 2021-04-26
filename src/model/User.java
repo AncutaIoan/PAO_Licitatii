@@ -40,7 +40,7 @@ public class User{
 
     @Override //annotation
     public String toString() {
-        return idUser + " / " + username + " / " + password + " / " + lastName + " / "+ firstName + " / " + address;
+        return idUser + "," + username + "," + password + "," + lastName + ","+ firstName + "," + address;
     }
 
 }

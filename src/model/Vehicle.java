@@ -45,7 +45,7 @@ public class Vehicle  extends Product{
 
     @Override //annotation
     public String toString() {
-        return maker + " / " + model + " / " + yearOfFab + " / " + consume + " / " + accident + " / " + repaired+ " / "+ power + " / " + super.toString() ;
+        return  super.toString()+ "," + maker + "," + model + "," + yearOfFab + "," + consume + "," + accident + "," + repaired+ ","+ power  ;
     }
 
 }
