@@ -1,4 +1,4 @@
-# PAO_Licitatii
+# PAO_Actions
 <b>PAO</b>
 
 ```
@@ -7,7 +7,7 @@ Task: auction basic system
 Classes: Auction, Product, User, Land, Business, RealEState, Bid,Notification, Vehicle
 
 ```
-<b>IERARHIE</b>
+<b>Hierarchy</b>
 
 Product:
 
