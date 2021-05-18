@@ -4,7 +4,7 @@
 ```
 Task: auction basic system
 
-Classes: Licitatie, Product, User, Land, Business, RealEState, Bid,Notification, Vehicle
+Classes: Auction, Product, User, Land, Business, RealEState, Bid,Notification, Vehicle
 
 ```
 <b>IERARHIE</b>
