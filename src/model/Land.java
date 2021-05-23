@@ -11,7 +11,7 @@ public class Land extends Product{
     {
 
     }
-    public Land(long id_Product, String product_Type, double minimVal, boolean sold,
+    public Land(int id_Product, String product_Type, double minimVal, boolean sold,
                  String tip, String zona, double lungime, double latime, boolean electricitate, boolean apa){
         super(id_Product, product_Type, minimVal, sold);
         this.type=tip;

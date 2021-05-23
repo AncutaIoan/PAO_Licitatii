@@ -4,23 +4,42 @@ import model.*;
 import service.*;
 
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 public class Application {
     public static void main(String[] args) throws FileNotFoundException {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         LoadData loadData=new LoadData();
         Auction auction=new Auction();
         AuctionService auctionService=new AuctionService(new NotificationService());
         Scanner scanner=new Scanner(System.in);
         loadData.addUsers(auction);
+        SaveData saveData=new SaveData();
         loadData.addProducts(auction, auctionService);
         Audit audit=new Audit();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         while(true)
         {
-            System.out.println("Please type one of the following commands: add, view or exit");
+            System.out.println("Please type one of the following commands: add, edit, delete, view or exit");
             String line=scanner.nextLine();
             switch (line){
                 case "add": {
@@ -43,29 +62,40 @@ public class Application {
                                     audit.addRequest("add,land,"+dtf.format(now));
                                     System.out.println("Please specify the land details: product_Type/minimValue/sold/tip/zona/lungime/latime/electricitate/apa");
                                     //product_Type=teren, nu vrea fara
-                                    auctionService.addProduct(auction, buildLand(scanner.nextLine()));
+                                    Product product=buildLand(auction.getLastProductId(),scanner.nextLine());
+                                    auctionService.addProduct(auction, product);
+                                    saveData.saveProduct(auction,product);
+                                    audit.addRequest("add,land,"+dtf.format(now));
+
                                     break;
                                 }
                                 case "vehicle": {
                                     System.out.println("Please specify the car details: " +
                                             "product_Type/minimValue/sold/marca/model/anFabricatie/consum/accident/reparat/putere");
-                                    auctionService.addProduct(auction, buildCar(scanner.nextLine()));
+                                    Product product=buildCar(auction.getLastProductId(),scanner.nextLine());
+                                    auctionService.addProduct(auction, product);
+                                    saveData.saveProduct(auction,product);
                                     audit.addRequest("add,vehicle,"+dtf.format(now));
+
+
 
                                     break;
                                 }
                                 case "realestate": {
                                     System.out.println("Please specify the real estate details: product_Type/minimValue/sold/nrCamere/etaj/anConstruire/principala");
-                                    auctionService.addProduct(auction, buildRealEstate(scanner.nextLine()));
+                                    Product product=buildRealEstate(auction.getLastProductId(),scanner.nextLine());
+                                    auctionService.addProduct(auction, product);
+                                    saveData.saveProduct(auction,product);
                                     audit.addRequest("add,realestate,"+dtf.format(now));
 
                                     break;
                                 }
                                 case "business": {
                                     System.out.println("Please specify the business details: product_Type/minimValue/sold/profitAnual/ocupatie/nrAng");
-                                    auctionService.addProduct(auction, buildBusiness(scanner.nextLine()));
+                                    Product product=buildBusiness(auction.getLastProductId(),scanner.nextLine());
+                                    auctionService.addProduct(auction, product);
+                                    saveData.saveProduct(auction,product);
                                     audit.addRequest("add,business,"+dtf.format(now));
-
                                     break;
                                 }
                                 default:
@@ -91,9 +121,20 @@ public class Application {
                         auctionService.printUsersDetails(auction);
                     break;
                 }
+                case "edit":{
+                    System.out.println("Please specify the product id for edit action: ");
+                    int pId=Integer.valueOf(scanner.nextLine());
+
+                    break;
+                }
+                case "delete":{
+                    System.out.println("Please specify the product id for delete action: ");
+                    int pId=Integer.valueOf(scanner.nextLine());
+                    auctionService.deleteProduct(auction,pId);
+                    break;
+                }
                 case "exit":{
                     System.out.println("Bye bye!");
-                    SaveData saveData=new SaveData();
                    saveData.saveProducts(auction,auctionService);
                    saveData.saveUsers(auction);
                       //  saveData.saveBids(auction);
@@ -126,7 +167,7 @@ public class Application {
     }
 
 
-    private static Land buildLand(String productDetails) {
+    private static Land buildLand(int lastId,String productDetails) {
         String[] attributes = productDetails.split("/");
 
         String product_Type = attributes[0];
@@ -139,11 +180,11 @@ public class Application {
         boolean electricitate = Boolean.valueOf(attributes[7]);
         boolean apa = Boolean.valueOf(attributes[8]);
 
-        return new Land(new Random().nextInt(100), product_Type, minimValue,sold, tip, zona, lungime, latime, electricitate, apa);
+        return new Land(lastId, product_Type, minimValue,sold, tip, zona, lungime, latime, electricitate, apa);
     }
 
 
-    private static Vehicle buildCar(String productDetails) {
+    private static Vehicle buildCar(int lastId,String productDetails) {
         //impartire date
         String[] attributes = productDetails.split("/");
         //aranjare date
@@ -157,10 +198,10 @@ public class Application {
         boolean accident = Boolean.valueOf(attributes[7]);
         boolean reparat = Boolean.valueOf(attributes[8]);
         int putere=Integer.valueOf(attributes[9]);
-        return new Vehicle(new Random().nextInt(100), product_Type, minimValue,sold, marca,model, anFabricatie, consum, accident, reparat, putere);
+        return new Vehicle(lastId, product_Type, minimValue,sold, marca,model, anFabricatie, consum, accident, reparat, putere);
     }
 
-    private static RealEstate buildRealEstate(String productDetails) {
+    private static RealEstate buildRealEstate(int lastId,String productDetails) {
         //impartire date
         String[] attributes = productDetails.split("/");
         //aranjare date
@@ -173,10 +214,10 @@ public class Application {
         int anConstruire = Integer.valueOf(attributes[5]);
         boolean principala = Boolean.valueOf(attributes[6]);
 
-        return new RealEstate(new Random().nextInt(100), product_Type, minimValue,sold, nrCamere, etaj, anConstruire, principala);
+        return new RealEstate(lastId, product_Type, minimValue,sold, nrCamere, etaj, anConstruire, principala);
     }
 
-    private static Business buildBusiness(String productDetails) {
+    private static Business buildBusiness(int lastId,String productDetails) {
         //impartire date
         String[] attributes = productDetails.split("/");
         //aranjare date
@@ -189,7 +230,7 @@ public class Application {
         String ocupatie=attributes[4];
         int nrAng=Integer.valueOf(attributes[5]);
 
-        return new Business(new Random().nextInt(100), product_Type, minimValue,sold, profitAnual, ocupatie, nrAng);
+        return new Business(lastId, product_Type, minimValue,sold, profitAnual, ocupatie, nrAng);
     }
     private static Bid buildBid(Auction auction,String bidDetails,int mU,int mP){
         //impartire date

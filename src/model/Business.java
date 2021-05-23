@@ -9,7 +9,7 @@ public class Business extends Product{
     {
 
     }
-    public Business(long id_Product, String product_Type, double minimVal, boolean sold,
+    public Business(int id_Product, String product_Type, double minimVal, boolean sold,
                    double profitAnual, String ocupatie, int nrAng){
         super(id_Product, product_Type, minimVal, sold);
         this.anualIncome=profitAnual;

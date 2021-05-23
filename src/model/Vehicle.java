@@ -12,7 +12,7 @@ public class Vehicle  extends Product{
     {
 
     }
-    public Vehicle(long id_Product, String product_Type, double minimVal, boolean sold,
+    public Vehicle(int id_Product, String product_Type, double minimVal, boolean sold,
                    String marca, String model, int anFabricatie, double consum, boolean acc, boolean rep, int putere){
         super(id_Product, product_Type, minimVal, sold);
         this.maker=marca;
