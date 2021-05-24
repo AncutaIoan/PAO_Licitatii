@@ -124,7 +124,8 @@ public class Application {
                 case "edit":{
                     System.out.println("Please specify the product id for edit action: ");
                     int pId=Integer.valueOf(scanner.nextLine());
-
+                    System.out.println("Please provide the details. Keep in mind, it needs to be the same object :");
+                    auctionService.editProduct(auction,pId,scanner.nextLine());
                     break;
                 }
                 case "delete":{
