@@ -35,6 +35,16 @@ public class Auction{
     public Product[] getProducts() {
         return products;
     }
+    public int getLastProductId(){
+        int lastId = 0;
+        for(Product p : products) {
+            if(p != null) {
+                lastId=p.getIdProduct();
+            }
+        }
+        return lastId+1;
+        
+    }
     public void setProducts(Product[] products) {
         this.products = products;
     }

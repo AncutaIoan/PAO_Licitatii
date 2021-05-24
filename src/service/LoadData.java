@@ -1,5 +1,9 @@
 package service;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.Scanner;  // Import the Scanner class
 import java.io.File;
@@ -11,65 +15,130 @@ public class LoadData {
 
 
     public void addProducts(Auction auction,AuctionService auctionService) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("products.txt"));
-        while(scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] attributes = line.split(",");
-            String productType = attributes[0];
-            switch (productType) {
-                case "land": {
-                    double minimValue = Double.valueOf(attributes[1]);
-                    boolean sold = Boolean.valueOf(attributes[2]);
-                    String tip = attributes[3];
-                    String zona = attributes[4];
-                    double lungime=Double.valueOf(attributes[5]);
-                    double latime=Double.valueOf(attributes[6]);
-                    boolean electricitate = Boolean.valueOf(attributes[7]);
-                    boolean apa = Boolean.valueOf(attributes[8]);
-                    auctionService.addProduct(auction, new Land(new Random().nextInt(100), productType, minimValue,sold, tip, zona, lungime, latime, electricitate, apa));
-                    break;
-                }
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pao_auctions", "root", "MATRICE123");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from product");
+
+
+            Scanner scanner = new Scanner(new File("products.txt"));
+            while (resultSet.next()) {
+
+                switch (resultSet.getString("productType")) {
+                    case "land": {
+                        int idProduct = Integer.valueOf(resultSet.getString("idProduct"));
+                        String productType = resultSet.getString("productType");
+                        double minimValue = Double.valueOf(resultSet.getString("minimValue"));
+                        int sol=Integer.valueOf(resultSet.getString("sold"));
+                        boolean sold=false;
+                        if(sol==1)
+                            sold=true;
+                        String tip = resultSet.getString("type");
+                        String zona = resultSet.getString("area");
+                        double lungime = Double.valueOf(resultSet.getString("length"));
+                        double latime = Double.valueOf(resultSet.getString("width"));
+                        int elect=Integer.valueOf(resultSet.getString("electricity"));
+                        int wata=Integer.valueOf(resultSet.getString("water"));
+                        boolean electricitate=false;
+                        if(elect==1)
+                           electricitate=true;
+                        boolean apa = false;
+                        if(wata==1)
+                            apa=true;
+                        auctionService.addProduct(auction, new Land(idProduct, productType, minimValue, sold, tip, zona, lungime, latime, electricitate, apa));
+                        break;
+                    }
                 case "vehicle": {
-                    double minimValue = Double.valueOf(attributes[1]);
-                    boolean sold = Boolean.valueOf(attributes[2]);
-                    String marca = attributes[3];
-                    String model = attributes[4];
-                    int anFabricatie=Integer.valueOf(attributes[5]);
-                    double consum=Double.valueOf(attributes[6]);
-                    boolean accident = Boolean.valueOf(attributes[7]);
-                    boolean reparat = Boolean.valueOf(attributes[8]);
-                    int putere=Integer.valueOf(attributes[9]);
-                    auctionService.addProduct(auction, new Vehicle(new Random().nextInt(100), productType, minimValue,sold, marca,model, anFabricatie, consum, accident, reparat, putere));
+                    int idProduct = Integer.valueOf(resultSet.getString("idProduct"));
+                    String productType = resultSet.getString("productType");
+                    double minimValue = Double.valueOf(resultSet.getString("minimValue"));
+                    int sol=Integer.valueOf(resultSet.getString("sold"));
+                    boolean sold=false;
+                    if(sol==1)
+                        sold=true;
+                    /*
+                    private String maker;
+                    private String model;
+                    private int yearOfFab;
+                    private double consume;
+                    private boolean accident;
+                    private boolean repaired;
+                    private int power;
+                     */
+                    String marca = resultSet.getString("maker");
+                    String model = resultSet.getString("model");
+                    int anFabricatie=Integer.valueOf(resultSet.getString("yearOfFab"));
+                    double consum=Double.valueOf(resultSet.getString("consume"));
+                    int acc=Integer.valueOf(resultSet.getString("accident"));
+
+                    boolean accident = false;
+                    if(acc==1)
+                        accident=true;
+                    int rep=Integer.valueOf(resultSet.getString("repaired"));
+                    boolean reparat = false;
+                    if(rep==1)
+                        reparat=true;
+                    int putere=Integer.valueOf(resultSet.getString("power"));
+                    auctionService.addProduct(auction, new Vehicle(idProduct, productType, minimValue,sold, marca,model, anFabricatie, consum, accident, reparat, putere));
                     break;
                 }
                 case "realestate": {
 
 
-                    double minimValue = Double.valueOf(attributes[1]);
-                    boolean sold = Boolean.valueOf(attributes[2]);
-                    int nrCamere = Integer.valueOf(attributes[3]);
-                    int etaj = Integer.valueOf(attributes[4]);
-                    int anConstruire = Integer.valueOf(attributes[5]);
-                    boolean principala = Boolean.valueOf(attributes[6]);
-                   auctionService.addProduct(auction, new RealEstate(new Random().nextInt(100), productType, minimValue,sold, nrCamere, etaj, anConstruire, principala));
+                    int idProduct = Integer.valueOf(resultSet.getString("idProduct"));
+                    String productType = resultSet.getString("productType");
+                    double minimValue = Double.valueOf(resultSet.getString("minimValue"));
+                    int sol=Integer.valueOf(resultSet.getString("sold"));
+                    boolean sold=false;
+                    if(sol==1)
+                        sold=true;
+                    /*
+                        private int nrRooms;
+    private int floor;
+    private int year;
+    private boolean mainStreet;
+                     */
+                    int nrCamere = Integer.valueOf(resultSet.getString("nrRooms"));
+                    int etaj = Integer.valueOf(resultSet.getString("floor"));
+                    int anConstruire = Integer.valueOf(resultSet.getString("year"));
+                    int pr=Integer.valueOf(resultSet.getString("mainStreet"));
+                    boolean principala = false;
+                    if(pr==1)
+                        principala=true;
+                   auctionService.addProduct(auction, new RealEstate(idProduct, productType, minimValue,sold, nrCamere, etaj, anConstruire, principala));
 
                     break;
                 }
                 case "business": {
-                    double minimValue = Double.valueOf(attributes[1]);
-                    boolean sold = Boolean.valueOf(attributes[2]);
 
-                    double profitAnual=Double.valueOf(attributes[3]);
-                    String ocupatie=attributes[4];
-                    int nrAng=Integer.valueOf(attributes[5]);
+                    int idProduct = Integer.valueOf(resultSet.getString("idProduct"));
+                    String productType = resultSet.getString("productType");
+                    double minimValue = Double.valueOf(resultSet.getString("minimValue"));
+                    int sol=Integer.valueOf(resultSet.getString("sold"));
+                    boolean sold=false;
+                    if(sol==1)
+                        sold=true;
+                    /*
+                        private double anualIncome;
+    private String ocupation;
+    private int nrEmp;
+                     */
+                    double profitAnual=Double.valueOf(resultSet.getString("anualIncome"));
+                    String ocupatie=resultSet.getString("ocupation");
+                    int nrAng=Integer.valueOf(resultSet.getString("nrEmp"));
 
-                    auctionService.addProduct(auction,  new Business(new Random().nextInt(100), productType, minimValue,sold, profitAnual, ocupatie, nrAng));
+                    auctionService.addProduct(auction,  new Business(idProduct, productType, minimValue,sold, profitAnual, ocupatie, nrAng));
                     break;
                 }
 
+
+
+                }
             }
         }
-
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public void addUsers(Auction auction) {
         Scanner scanner = null;

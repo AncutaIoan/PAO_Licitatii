@@ -1,7 +1,7 @@
 package model;
 
 public abstract class Product{
-    private long idProduct;
+    private int idProduct;
     private String productType;
     private double minimValue;
     private boolean sold;
@@ -10,7 +10,7 @@ public abstract class Product{
 
     }
 
-    public Product(long id, String product_Name, double minimValue, boolean sold) {
+    public Product(int id, String product_Name, double minimValue, boolean sold) {
         this.idProduct = id;
         this.productType = product_Name;
         this.minimValue = minimValue;
@@ -18,11 +18,11 @@ public abstract class Product{
 
     }
 
-    public long getIdProduct() {
+    public int getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(long id) {
+    public void setIdProduct(int id) {
         this.idProduct = id;
     }
 
@@ -42,7 +42,9 @@ public abstract class Product{
         this.minimValue = mV;
     }
 
-
+    public boolean getSold(){
+        return sold;
+    }
     @Override //annotation
     public String toString() {
         return productType + "," + minimValue + "," + sold;

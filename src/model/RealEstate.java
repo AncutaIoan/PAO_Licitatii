@@ -10,7 +10,7 @@ public class RealEstate extends Product{
     {
 
     }
-    public RealEstate(long id_Product, String product_Type, double minimVal, boolean sold,
+    public RealEstate(int id_Product, String product_Type, double minimVal, boolean sold,
                       int nrCamere,int etaj,int anConstruire,boolean principala){
         super(id_Product, product_Type, minimVal, sold);
         this.nrRooms=nrCamere;

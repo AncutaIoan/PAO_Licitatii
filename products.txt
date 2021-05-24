@@ -1,2 +1,4 @@
-business,100.0,false,100.0,asd,10
-realestate,100.0,false,3,2,1900,false
+land,100.0,true,intravilin,munte,100.0,40.0,true,true
+land,100.0,true,extravilan,mare,100.0,40.0,true,true
+land,1000.0,true,extravilan,munte,1020.0,40.0,true,true
+land,100.0,false,intravilantest,muntetest,100.0,100.0,true,false
